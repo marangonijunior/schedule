@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "249537348069",
+    "firebase_url": "https://schedule-46fe9.firebaseio.com",
+    "project_id": "schedule-46fe9",
+    "storage_bucket": "schedule-46fe9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249537348069:android:a09ac6afb4b74724b72f0c",
+        "android_client_info": {
+          "package_name": "com.marangonijunior.schedule"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "249537348069-gopqsf6d6brankokrfip6d3tfuklg8ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuZYqtUyLgbdoCDQqwLuLFvQWKIjESEas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "249537348069-gopqsf6d6brankokrfip6d3tfuklg8ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
