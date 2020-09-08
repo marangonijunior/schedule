@@ -1,9 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Schedule</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <ion-fab vertical="top" horizontal="end" slot="fixed" style="margin-top: -10%;">
+    <ion-fab-button>
+      <ion-icon name="menu"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button color="primary" (click)="add()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="primary" (click)="deleteAll()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="primary" (click)="share()">
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  <ionic-calendar-date-picker 
+  (onSelect)="dateSelected($event)"
+  [backgroundStyle]="{ 'background-color': '#CFD8DC' }"
+  [dayLabelsStyle]="{ 'font-weight': 500, 'font-size': '14px'}"
+  [monthLabelsStyle]="{ 'font-size': '15px' }"
+  [yearLabelsStyle]="{ 'font-size': '15px' }"
+  [itemSelectedStyle]="{ 'background': '#448AFF', 'color': '#f4f4f4 !important' }"
+  [todaysItemStyle]="{ 'color': '#448AFF' }"
+  ></ionic-calendar-date-picker>	
+  <div class="listTasks">
+    <ion-list>
+      <!-- Multi-line sliding item with icon options on both sides -->
+      <ion-item-sliding id="item100">
+        <ion-item href="#" style="--ion-background-color: #eeeeee">
+          <ion-label style="color:#37474f">
+            <h2>HubStruck Notifications</h2>
+            <p>A new message in your network</p>
+            <p>Oceanic Next has joined your network</p>
+          </ion-label>
+          <ion-note slot="end" style="color:#37474f">
+            10:45 AM
+          </ion-note>
+        </ion-item>
+    
+        <ion-item-options side="end">
+          <ion-item-option color="danger">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="primary">
+            <ion-icon slot="icon-only" name=checkmark-circle></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 </ion-content>

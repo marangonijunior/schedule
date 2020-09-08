@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { FirebaseX } from '@ionic-native/firebase-x/ngx';
-import { Platform, ToastController } from '@ionic/angular';
-
+import { Platform, ToastController, AlertController, ActionSheetController } from '@ionic/angular';
+import { FirestoreService } from '../../service/firestore.service';
 const { Device } = Plugins;
 
 
@@ -14,17 +14,26 @@ const { Device } = Plugins;
 export class HomePage implements OnInit {
 
   device;
+  listSchedule = [];
+  objectData = {
+    day: 1,
+    month: 1,
+    year: 1
+  }
 
   constructor(
     private firebaseX: FirebaseX,
     public toastController: ToastController,
-    public platform: Platform
+    public platform: Platform,
+    public firestoreService: FirestoreService,
+    public alertController: AlertController,
+    public actionSheetCtrl: ActionSheetController
   ) { }
 
   ngOnInit() {
 
     this.device = Device.getInfo();
-
+    this.setData();
     this.firebaseX.setAnalyticsCollectionEnabled(true); // Enables analytics data collection
     this.firebaseX.setScreenName('Home Schedule');
 
@@ -48,6 +57,78 @@ export class HomePage implements OnInit {
       }
     });
 
+  }
+
+  setData(){
+    this.objectData.day = new Date().getDay();
+    this.objectData.month = new Date().getMonth();
+    this.objectData.year = new Date().getFullYear();
+    this.getData(this.objectData);
+  }
+
+  dateSelected(e){
+    console.log('dateSelected', e);
+  }
+
+  getData(data){
+    this.firestoreService.read_tasks(`${data.day}/${data.month}/${data.year}`).subscribe(resp => {
+
+        this.listSchedule = resp.map(e => {
+          return {
+            id: e.payload.doc.id,
+            Name: e.payload.doc.data()['Name'],
+            Age: e.payload.doc.data()['Age'],
+            Address: e.payload.doc.data()['Address'],
+          };
+        });
+        console.log(this.listSchedule);
+
+    });
+  }
+
+  async share() {
+    const actionSheet = await this.actionSheetCtrl.create({
+          buttons: [
+              {
+                  text: 'Compartilhar ',
+                  handler: () => {
+                      console.log('set');
+                  }
+              }, {
+                  text: 'Tirar foto',
+                  handler: () => {
+                    console.log('set');
+                  }
+              }, {
+                  text: 'Cancelar',
+                  role: 'cancel'
+              }]
+      });
+    await actionSheet.present();
+  }
+
+  async deleteAll(){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Delete tasks.',
+      message: 'Do you have sure that want delete all items?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Clear',
+          handler: () => {
+            console.log('Confirm Clear: blah');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   setPush() {
