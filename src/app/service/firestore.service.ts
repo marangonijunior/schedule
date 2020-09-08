@@ -17,8 +17,10 @@ export class FirestoreService {
     return this.firestore.collection(this.collectionName).add(record);
   }
 
-  read_tasks(date) {
-    return this.firestore.collection(this.collectionName, ref => ref.where('data', '==', date)).snapshotChanges();
+  read_tasks(date, uuid) {
+    return this.firestore.collection(
+      this.collectionName,
+      ref => ref.where('date', '==', date).where('id_user', '==', uuid)).snapshotChanges();
   }
 
   update_tasks(recordID, record) {

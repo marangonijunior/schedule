@@ -12,11 +12,8 @@
       <ion-fab-button color="primary" (click)="add()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="primary" (click)="deleteAll()">
-        <ion-icon name="trash"></ion-icon>
-      </ion-fab-button>
       <ion-fab-button color="primary" (click)="share()">
-        <ion-icon name="share"></ion-icon>
+        <ion-icon name="logo-whatsapp"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
@@ -32,27 +29,29 @@
   <div class="listTasks">
     <ion-list>
       <!-- Multi-line sliding item with icon options on both sides -->
-      <ion-item-sliding id="item100">
-        <ion-item href="#" style="--ion-background-color: #eeeeee">
-          <ion-label style="color:#37474f">
-            <h2>HubStruck Notifications</h2>
-            <p>A new message in your network</p>
-            <p>Oceanic Next has joined your network</p>
-          </ion-label>
-          <ion-note slot="end" style="color:#37474f">
-            10:45 AM
-          </ion-note>
-        </ion-item>
-    
-        <ion-item-options side="end">
-          <ion-item-option color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-          <ion-item-option color="primary">
-            <ion-icon slot="icon-only" name=checkmark-circle></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
+      <div *ngFor="let item of listSchedule, let i = index" >
+        <ion-item-sliding id="item100" *ngIf="item.show">
+          <ion-item style="--ion-background-color: #eeeeee" >
+            <ion-label style="color:#37474f">
+              <h2>{{item.title}}</h2>
+              <p>{{item.description}}</p>
+            </ion-label>
+            <ion-note slot="end" style="color:#37474f">
+              {{item.time | date:'shortTime'}}
+            </ion-note>
+          </ion-item>
+      
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="finish(item)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="primary" (click)="finish(item)">
+              <ion-icon slot="icon-only" name=checkmark-circle></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </div>
+      
     </ion-list>
   </div>
 </ion-content>

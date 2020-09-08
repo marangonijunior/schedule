@@ -1,0 +1,27 @@
+.form{
+    display: grid;
+    margin: 10%;
+
+    ion-item {
+        --highlight-color-focused: none;
+        --highlight-color-valid: none;
+        --highlight-color-invalid: none;
+        // border: solid 1px #000;
+        border-radius: 15px;
+        color: #000;
+        --background: transparent;
+        margin-top: 3%;
+        height: 70%;
+        ion-input:focus {
+            outline: none;
+          }
+        button {
+            background-color: transparent;
+            color: #FF9800;
+            font-size: 14px;
+        }
+        button:focus {
+            outline: none;
+          }
+      }
+}
